@@ -19,7 +19,6 @@ The implementation is built using **Python** with **FastAPI**, featuring a leade
 7. [Performance Analysis](#7-performance-analysis)
 8. [Deployment and Containerization](#8-deployment-and-containerization)
 9. [Usage and Commands](#9-usage-and-commands)
-10. [Design Decisions and Trade-offs](#10-design-decisions-and-trade-offs)
 
 ---
 
@@ -763,65 +762,6 @@ This will:
 2. Run 100 writes per quorum setting
 3. Generate `artifacts/quorum_latency.png`
 4. Save results to `artifacts/perf_summary.json`
-
----
-
-## 10. Design Decisions and Trade-offs
-
-### 10.1 Key Design Decisions
-
-#### **1. Semi-Synchronous vs. Fully Synchronous Replication**
-
-**Decision**: Wait for configurable quorum, not all followers.
-
-**Rationale**:
-- Reduces latency (don't wait for slowest follower)
-- Provides tunable durability/latency trade-off
-- Matches real-world distributed database patterns
-
-**Trade-off**: Data might be lost if leader fails before background replication completes to all followers.
-
-#### **2. Version-Based Conflict Resolution**
-
-**Decision**: Use monotonically increasing versions with last-writer-wins semantics.
-
-**Rationale**:
-- Simple to implement and reason about
-- Handles out-of-order delivery correctly
-- Enables idempotent replication
-
-**Trade-off**: Requires leader to be the single source of version assignment.
-
-#### **3. Random Delay Simulation**
-
-**Decision**: Add random delay before each replication request.
-
-**Rationale**:
-- Simulates realistic network conditions
-- Demonstrates quorum behavior clearly
-- Makes performance analysis more meaningful
-
-**Trade-off**: Adds artificial latency (remove for production).
-
-#### **4. In-Memory Storage**
-
-**Decision**: Store data in Python dictionaries protected by asyncio locks.
-
-**Rationale**:
-- Simple implementation
-- Fast access
-- Sufficient for demonstration purposes
-
-**Trade-off**: Data is lost on container restart (not persistent).
-
-### 10.2 Alternative Approaches Considered
-
-| Approach | Considered | Rejected Because |
-|----------|------------|------------------|
-| Multi-leader replication | Yes | More complex conflict resolution needed |
-| Consensus protocols (Raft/Paxos) | Yes | Overkill for this assignment |
-| Persistent storage (Redis/SQLite) | Yes | Added complexity without educational benefit |
-| gRPC instead of REST | Yes | JSON over HTTP is simpler and more accessible |
 
 ---
 
