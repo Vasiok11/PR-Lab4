@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  leader:
+    build: .
+    container_name: kv_leader
+    environment:
+      ROLE: leader
+      HOST: 0.0.0.0
+      PORT: 8000
+      FOLLOWER_URLS: http://follower1:8000,http://follower2:8000,http://follower3:8000,http://follower4:8000,http://follower5:8000
+      WRITE_QUORUM: ${WRITE_QUORUM:-3}
+      MIN_DELAY_MS: ${MIN_DELAY_MS:-0}
+      MAX_DELAY_MS: ${MAX_DELAY_MS:-1000}
+      REPLICATION_TIMEOUT_MS: ${REPLICATION_TIMEOUT_MS:-4000}
+    ports:
+      - "9000:8000"
+    depends_on:
+      - follower1
+      - follower2
+      - follower3
+      - follower4
+      - follower5
+
+  follower1:
+    build: .
+    container_name: kv_follower1
+    environment:
+      ROLE: follower
+      HOST: 0.0.0.0
+      PORT: 8000
+    ports:
+      - "9001:8000"
+
+  follower2:
+    build: .
+    container_name: kv_follower2
+    environment:
+      ROLE: follower
+      HOST: 0.0.0.0
+      PORT: 8000
+    ports:
+      - "9002:8000"
+
+  follower3:
+    build: .
+    container_name: kv_follower3
+    environment:
+      ROLE: follower
+      HOST: 0.0.0.0
+      PORT: 8000
+    ports:
+      - "9003:8000"
+
+  follower4:
+    build: .
+    container_name: kv_follower4
+    environment:
+      ROLE: follower
+      HOST: 0.0.0.0
+      PORT: 8000
+    ports:
+      - "9004:8000"
+
+  follower5:
+    build: .
+    container_name: kv_follower5
+    environment:
+      ROLE: follower
+      HOST: 0.0.0.0
+      PORT: 8000
+    ports:
+      - "9005:8000"

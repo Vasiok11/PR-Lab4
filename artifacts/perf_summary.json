@@ -1,0 +1,47 @@
+{
+  "total_writes_per_run": 100,
+  "concurrency": 10,
+  "key_count": 10,
+  "results": [
+    {
+      "quorum": 1,
+      "writes": 100,
+      "avg_latency_ms": 209.7900039984961,
+      "min_latency_ms": 8.407199988141656,
+      "max_latency_ms": 594.0944000030868,
+      "parity_ok": true
+    },
+    {
+      "quorum": 2,
+      "writes": 100,
+      "avg_latency_ms": 324.7291510013747,
+      "min_latency_ms": 61.26300001051277,
+      "max_latency_ms": 728.8063000014517,
+      "parity_ok": true
+    },
+    {
+      "quorum": 3,
+      "writes": 100,
+      "avg_latency_ms": 493.9707390018157,
+      "min_latency_ms": 111.08460000832565,
+      "max_latency_ms": 923.5944999963976,
+      "parity_ok": true
+    },
+    {
+      "quorum": 4,
+      "writes": 100,
+      "avg_latency_ms": 677.6944019988878,
+      "min_latency_ms": 174.2534999793861,
+      "max_latency_ms": 1018.6056999955326,
+      "parity_ok": true
+    },
+    {
+      "quorum": 5,
+      "writes": 100,
+      "avg_latency_ms": 855.0680520007154,
+      "min_latency_ms": 323.60459998017177,
+      "max_latency_ms": 1024.856700008968,
+      "parity_ok": true
+    }
+  ]
+}
